@@ -49,7 +49,48 @@ function cleanupOldFiles() {
 
 // 根路由
 app.get("/", function(req, res) {
-  res.send("Hello world!");
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Navigation Page</title>
+        <style>
+            body { font-family: Arial, sans-serif; }
+            .container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; padding: 20px; }
+            a { text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 5px; }
+            a:hover { background-color: #0056b3; }
+        </style>
+    </head>
+    <body>
+        <h1 style="text-align:center;">Welcome to the Navigation Page</h1>
+        <div class="container">
+            <a href="https://www.google.com" target="_blank">Google</a>
+            <a href="https://www.youtube.com" target="_blank">YouTube</a>
+            <a href="https://www.x.com" target="_blank">X (Twitter)</a>
+            <a href="https://www.instagram.com" target="_blank">Instagram</a>
+            <a href="https://www.facebook.com" target="_blank">Facebook</a>
+            <a href="https://www.tiktok.com" target="_blank">TikTok</a>
+            <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
+            <a href="https://www.reddit.com" target="_blank">Reddit</a>
+            <a href="https://www.netflix.com" target="_blank">Netflix</a>
+            <a href="https://www.amazon.com" target="_blank">Amazon</a>
+            <a href="https://www.wikipedia.org" target="_blank">Wikipedia</a>
+            <a href="https://www.github.com" target="_blank">GitHub</a>
+            <a href="https://www.stackoverflow.com" target="_blank">Stack Overflow</a>
+            <a href="https://www.spotify.com" target="_blank">Spotify</a>
+            <a href="https://www.ebay.com" target="_blank">eBay</a>
+            <a href="https://www.pinterest.com" target="_blank">Pinterest</a>
+            <a href="https://www.imdb.com" target="_blank">IMDb</a>
+            <a href="https://www.cnn.com" target="_blank">CNN</a>
+            <a href="https://www.bbc.com" target="_blank">BBC</a>
+            <a href="https://www.weather.com" target="_blank">Weather.com</a>
+        </div>
+    </body>
+    </html>
+  `;
+  res.send(htmlContent);
 });
 
 // 生成xr-ay配置文件
