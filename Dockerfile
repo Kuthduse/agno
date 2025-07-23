@@ -6,7 +6,7 @@ COPY . .
 
 EXPOSE 3000
 
-RUN apt update -y &&\
+RUN apk update &&\
     chmod +x index.js &&\
     npm install 
     
