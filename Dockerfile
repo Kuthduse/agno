@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:slim
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ COPY . .
 
 EXPOSE 3000
 
-RUN apk update &&\
+RUN apt update -y &&\
     chmod +x index.js &&\
     npm install 
     
