@@ -11,22 +11,24 @@ NAME="${NAME:-Vls}"
 pkill bot
 pkill web
 
+cd ./app
+
 # 检查并删除 boot.log
 if [ -f "boot.log" ]; then
-  rm -f "boot.log"
-  echo "已删除 boot.log"
+  rm -f "./boot.log"
+  echo "已删除 ./boot.log"
 fi
 
 # 检查并删除 config.json
 if [ -f "config.json" ]; then
-  rm -f "config.json"
-  echo "已删除 config.json"
+  rm -f "./config.json"
+  echo "已删除 ./config.json"
 fi
 
 # 检查并删除 sub.txt
 if [ -f "sub.txt" ]; then
-  rm -f "sub.txt"
-  echo "已删除 sub.txt"
+  rm -f "./sub.txt"
+  echo "已删除 ./sub.txt"
 fi
 
 
@@ -182,7 +184,7 @@ EOF
 
 # 后台启动 web（xr-ay）
 if [ -f "./web" ]; then
-  nohup ./web -c config.json >/dev/null 2>&1 &
+  nohup ./web -c ./config.json >/dev/null 2>&1 &
   sleep 2
   ps | grep "web" | grep -v 'grep'
   echo "web 已启动。"
@@ -207,12 +209,12 @@ if [ -n "$ARGO_AUTH" ] && [ -n "$ARGO_DOMAIN" ]; then
     echo "Cloudflare Tunnel Token: [已隐藏]"
     echo "正在启动固定的 Cloudflare 隧道..."
     ARGS="tunnel --edge-ip-version auto --no-autoupdate --protocol http2 run --token ${ARGO_AUTH}"
-    nohup ./bot $ARGS > boot.log 2>&1 &
+    nohup ./bot $ARGS > ./boot.log 2>&1 &
 
     echo "正在等待 Cloudflare 固定隧道连接... (最多 30 秒)"
     for attempt in $(seq 1 15); do
         sleep 2
-        if grep -q -E "Registered tunnel connection|Connected to .*, an Argo Tunnel an edge" boot.log; then
+        if grep -q -E "Registered tunnel connection|Connected to .*, an Argo Tunnel an edge" ./boot.log; then
             TUNNEL_CONNECTED=true
             break
         fi
@@ -224,13 +226,13 @@ else
     TUNNEL_MODE="临时隧道 (Temporary Tunnel)"
     echo "未提供 token 和/或 domain 环境变量，将使用【临时隧道模式】。"
     echo "正在启动临时的 Cloudflare 隧道..."
-    ARGS="tunnel --edge-ip-version auto --no-autoupdate --protocol http2 --logfile boot.log --loglevel info --url http://localhost:${ARGO_PORT}"
+    ARGS="tunnel --edge-ip-version auto --no-autoupdate --protocol http2 --logfile ./boot.log --loglevel info --url http://localhost:${ARGO_PORT}"
     nohup ./bot $ARGS >/dev/null 2>&1 &
 
     echo "正在等待 Cloudflare 临时隧道 URL... (最多 30 秒)"
     for attempt in $(seq 1 15); do
         sleep 2
-        TEMP_TUNNEL_URL=$(grep -o 'https://[a-zA-Z0-9-]*\.trycloudflare.com' boot.log | head -n 1)
+        TEMP_TUNNEL_URL=$(grep -o 'https://[a-zA-Z0-9-]*\.trycloudflare.com' ./boot.log | head -n 1)
         if [ -n "$TEMP_TUNNEL_URL" ]; then
             FINAL_DOMAIN=$(echo $TEMP_TUNNEL_URL | awk -F'//' '{print $2}')
             TUNNEL_CONNECTED=true
@@ -304,4 +306,5 @@ echo "./sub.txt saved successfully"
 
 # 输出 base64 结果（可用于 curl 返回）
 echo "$subTxt" | base64
-tail -f sub.txt
+
+tail -f ./sub.txt
