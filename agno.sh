@@ -12,6 +12,8 @@ pkill bot
 pkill web
 
 cd ./app
+ls
+pwd
 
 # 检查并删除 boot.log
 if [ -f "boot.log" ]; then
