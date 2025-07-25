@@ -236,6 +236,8 @@ else
     echo "正在启动临时的 Cloudflare 隧道..."
     ARGS="tunnel --edge-ip-version auto --no-autoupdate --protocol http2 --logfile ./boot.log --loglevel info --url http://localhost:${ARGO_PORT}"
     nohup ./bot $ARGS >/dev/null 2>&1 &
+    
+    sleep 5
     ls
     ps | grep "bot" | grep -v 'grep'
     echo "bot 已启动。"
