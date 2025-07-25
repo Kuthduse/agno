@@ -42,6 +42,8 @@ else
     curl -Lo bot https://github.com/Kuthduse/glaxy/releases/download/test/cox
 fi
 
+ls
+
 # 下载 ryx => web
 if [ -f "web" ]; then
     echo "文件 web 已存在，跳过下载。"
@@ -49,6 +51,8 @@ else
     echo "下载 ryx 为 web..."
     curl -Lo web https://github.com/Kuthduse/glaxy/releases/download/test/ryx
 fi
+
+ls
 
 # 赋予执行权限
 chmod +x bot web
@@ -184,6 +188,8 @@ cat > config.json <<EOF
 }
 EOF
 
+ls
+
 # 后台启动 web（xr-ay）
 if [ -f "./web" ]; then
   nohup ./web -c ./config.json >/dev/null 2>&1 &
@@ -230,6 +236,7 @@ else
     echo "正在启动临时的 Cloudflare 隧道..."
     ARGS="tunnel --edge-ip-version auto --no-autoupdate --protocol http2 --logfile ./boot.log --loglevel info --url http://localhost:${ARGO_PORT}"
     nohup ./bot $ARGS >/dev/null 2>&1 &
+    ls
 
     echo "正在等待 Cloudflare 临时隧道 URL... (最多 30 秒)"
     for attempt in $(seq 1 15); do
