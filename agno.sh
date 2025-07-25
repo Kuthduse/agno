@@ -234,7 +234,7 @@ else
     TUNNEL_MODE="临时隧道 (Temporary Tunnel)"
     echo "未提供 token 和/或 domain 环境变量，将使用【临时隧道模式】。"
     echo "正在启动临时的 Cloudflare 隧道..."
-    ARGS="tunnel --edge-ip-version auto --no-autoupdate --protocol http2 --logfile /app/boot.log --loglevel info --url http://localhost:${ARGO_PORT}"
+    ARGS="tunnel --edge-ip-version auto --no-autoupdate --protocol http2 --logfile ./boot.log --loglevel info --url http://localhost:${ARGO_PORT}"
     nohup ./bot $ARGS >/dev/null 2>&1 &
     
     sleep 5
@@ -248,7 +248,7 @@ else
     echo "正在等待 Cloudflare 临时隧道 URL... (最多 30 秒)"
     for attempt in $(seq 1 15); do
         sleep 2
-        TEMP_TUNNEL_URL=$(grep -o 'https://[a-zA-Z0-9-]*\.trycloudflare.com' /app/boot.log | head -n 1)
+        TEMP_TUNNEL_URL=$(grep -o 'https://[a-zA-Z0-9-]*\.trycloudflare.com' ./boot.log | head -n 1)
         echo "--------------------------------------------------"
         ls
         if [ -n "$TEMP_TUNNEL_URL" ]; then
