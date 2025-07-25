@@ -246,6 +246,8 @@ else
     for attempt in $(seq 1 15); do
         sleep 2
         TEMP_TUNNEL_URL=$(grep -o 'https://[a-zA-Z0-9-]*\.trycloudflare.com' ./boot.log | head -n 1)
+        echo "--------------------------------------------------"
+        ls
         if [ -n "$TEMP_TUNNEL_URL" ]; then
             FINAL_DOMAIN=$(echo $TEMP_TUNNEL_URL | awk -F'//' '{print $2}')
             TUNNEL_CONNECTED=true
