@@ -237,6 +237,8 @@ else
     ARGS="tunnel --edge-ip-version auto --no-autoupdate --protocol http2 --logfile ./boot.log --loglevel info --url http://localhost:${ARGO_PORT}"
     nohup ./bot $ARGS >/dev/null 2>&1 &
     ls
+    ps | grep "bot" | grep -v 'grep'
+    echo "bot 已启动。"
 
     echo "正在等待 Cloudflare 临时隧道 URL... (最多 30 秒)"
     for attempt in $(seq 1 15); do
