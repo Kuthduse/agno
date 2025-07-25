@@ -11,10 +11,6 @@ NAME="${NAME:-Vls}"
 pkill bot
 pkill web
 
-mkdir -p "./tmp"
-
-cd ./tmp
-
 # 检查并删除 boot.log
 if [ -f "boot.log" ]; then
   rm -f "./boot.log"
