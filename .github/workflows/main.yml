@@ -1,7 +1,11 @@
 name: Build and Push to GHCR
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main  # 或其他分支
+    paths:
+      - 'agno.sh'
 
 jobs:
   build-and-push:
